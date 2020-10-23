@@ -1,0 +1,11 @@
+class Main
+{
+   function void main()
+   {
+      var Forca jogada;
+
+      let jogada = Forca.new();
+      do jogada.jogar();
+      return;
+   }
+}

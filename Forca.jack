@@ -1,0 +1,170 @@
+class Forca{
+   
+   //Variaveis da classe
+   field String palavra; 
+   field String acertos;
+
+   constructor Forca new(){
+
+      var String titulo,dica;
+      var int i;
+   
+      let titulo = "Jogo da Forca!!";
+      let dica = "Dica: elemento do computador responsavel por implementar um meio padrao de progresso do tempo";
+      let i = 0;
+      
+      let palavra = "CLOCK";
+      let acertos = String.new(palavra.length());
+
+      while(i < (palavra.length()))
+      {
+         let acertos = acertos.appendChar(219); //adiciono espaços para cada letra
+         let i = i+1; 
+      }
+
+      do Output.printString(titulo);
+      do Output.println();
+      do Output.printString(dica);
+      do Output.println();
+      return this;
+   }
+   
+   method void jogar()
+   {
+      var boolean estado_jogo;
+      var int linha, erros;
+      var char tentativa;
+       
+      let erros = 0;
+      let linha = 3; 
+      let estado_jogo = 0; //se -1 o jogo acabou
+      do criaForca();
+      
+      while(~(estado_jogo))
+      {
+         do Output.printString(acertos);
+         do Output.moveCursor(linha,15);
+         let linha = linha +1;
+         let tentativa = Keyboard.readChar();
+         do Output.println();
+         if(~(tentativaCorreta(tentativa)))
+         {
+            if(erros = 0)
+            {
+               do criaCabeca();
+            }
+            if(erros = 1)
+            {
+               do criaCorpo();
+            }
+            if(erros = 2)
+            {
+               do criaBracoDir();
+            }
+            if(erros = 3)
+            {
+               do criarBarcoEsq();
+            }
+            if(erros = 4)
+            {
+               do criaPernaEsq(); 
+            }
+            if(erros = 5)
+            {
+               do criaPernaDir();
+               do Output.printString("ENFORCADO :/ !!");
+               let estado_jogo = -1;
+            }
+            let erros = erros +1; 
+         }
+         if(completou_palavra())
+         {
+            do Output.printString("Ufa, voce sobreviveu!");
+            let estado_jogo = -1;
+         }
+      }
+      return;
+   }
+   
+   //============== palavra completa? ==========
+   method boolean completou_palavra()
+   {
+      var int i;
+      let i = 0;
+      while(i < acertos.length())
+      {
+         if(acertos.charAt(i) = 219)
+         {
+            return 0; 
+         }
+         let i = i+1;
+      }
+      return -1; 
+   }
+   
+   //============ É uma letra da palavra? ==========
+   method boolean tentativaCorreta(char tentativa)
+   { 
+      var int i;
+      var boolean acertou;
+      let i =0;
+      let acertou = 0;
+      while(i < palavra.length())
+      {
+         if(tentativa = palavra.charAt(i))
+         {
+            do acertos.setCharAt(i, tentativa);
+	         let acertou = -1;
+         }
+         let i=i+1;
+      }
+	  return acertou;
+   }
+   
+  //========== Funções gráficas ===============
+   method void criaForca()
+   { 
+      do Screen.setColor(true);
+      do Screen.drawRectangle(350, 200, 450, 220);
+      do Screen.drawRectangle(395,50,405,200);
+      do Screen.drawRectangle(300,40,405,50);
+      do Screen.drawRectangle(300,40,310,70);
+      return;
+   }
+   
+
+   method void criaCabeca()
+   {
+      do Screen.drawCircle(305,90,20);
+      return;
+   }
+   method void criaCorpo()
+   {
+      do Screen.drawLine(305,110, 305, 160);
+      return;
+   }
+   method void criaBracoDir()
+   {
+      do Screen.drawLine(305,135, 320, 120);
+      return;
+   }
+
+   method void criarBarcoEsq()
+   {
+      do Screen.drawLine(305,135, 290, 120);
+      return;
+   }
+
+    method void criaPernaEsq()
+   {
+      do Screen.drawLine(305,160, 285, 180);
+      return;
+   }
+
+   method void criaPernaDir()
+   {
+      do Screen.drawLine(305,160, 325, 180);
+      return;
+   }
+  
+}
